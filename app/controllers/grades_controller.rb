@@ -1,42 +1,26 @@
 class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /grades
-  def index
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
+  def index    
   end
 
   # GET /grades/1
   def show
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
   end
 
   # GET /grades/new
   def new
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
-
     @grade = Grade.new
   end
 
   # GET /grades/1/edit
   def edit
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
   end
 
   # POST /grades
   def create
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
-
     @grade = Grade.new(grade_params)
 
     if @grade.save
@@ -48,10 +32,6 @@ class GradesController < ApplicationController
 
   # PATCH/PUT /grades/1
   def update
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
-
     if @grade.update(grade_params)
       redirect_to @grade, notice: 'Grade was successfully updated.'
     else
@@ -61,10 +41,6 @@ class GradesController < ApplicationController
 
   # DELETE /grades/1
   def destroy
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
-
     @grade.destroy
     redirect_to grades_url, notice: 'Grade was successfully destroyed.'
   end
@@ -73,6 +49,12 @@ class GradesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_grade
       @grade = Grade.find(params[:id])
+    end
+
+    def authenticate_user
+      if !user_signed_in?
+        redirect_to user_session_path
+      end
     end
 
     # Only allow a list of trusted parameters through.
