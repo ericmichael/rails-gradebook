@@ -26,7 +26,7 @@ RSpec.describe Grade, type: :model do
     expect(grade).to be_invalid
   end
 
-  it "requires the grade to be less than or equal to 0" do
+  it "requires the grade to be less than or equal to 100" do
     grade = Grade.new(student_id: "18484", student_name: "Joe Exotic", student_grade: 110)
     expect(grade).to be_invalid
   end
