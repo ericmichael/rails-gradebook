@@ -10,6 +10,9 @@ class GradesController < ApplicationController
 
   # GET /grades/1
   def show
+    if !user_signed_in?
+      redirect_to user_session_path
+    end
   end
 
   # GET /grades/new
