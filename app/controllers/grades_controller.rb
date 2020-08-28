@@ -1,11 +1,11 @@
 class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
+  #apply to all actions 
+  before_action :logged_in?
 
   # GET /grades
   def index
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
+ 
   end
 
   # GET /grades/1
@@ -57,4 +57,10 @@ class GradesController < ApplicationController
     def grade_params
       params.require(:grade).permit(:student_id, :student_name, :student_grade)
     end
+
+    def logged_in?
+      if !user_signed_in?
+        redirect_to user_session_path
+      end
+    end 
 end
