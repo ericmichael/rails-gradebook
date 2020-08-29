@@ -10,9 +10,7 @@ class GradesController < ApplicationController
 
   # GET /grades/1
   def show
-    if user_signed_in?
-      redirect_to grades_url
-    else
+    if !user_signed_in?
       redirect_to new_user_session_path
     end
   end
@@ -28,10 +26,8 @@ class GradesController < ApplicationController
 
   # GET /grades/1/edit
   def edit
-    # @grade = Grade.find(params[:id])
-    if user_signed_in?
+    if !user_signed_in?
       #proceed
-    else
       redirect_to new_user_session_path
     end
   end
@@ -64,7 +60,7 @@ class GradesController < ApplicationController
 
   # DELETE /grades/1
   def destroy
-    
+
     @grade.destroy
     redirect_to grades_url, notice: 'Grade was successfully destroyed.'
   end
@@ -80,3 +76,4 @@ class GradesController < ApplicationController
       params.require(:grade).permit(:student_id, :student_name, :student_grade)
     end
 end
+
