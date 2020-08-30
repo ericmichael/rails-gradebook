@@ -10,15 +10,25 @@ class GradesController < ApplicationController
 
   # GET /grades/1
   def show
+    if !user_signed_in?
+      redirect_to user_session_path
+    end
   end
 
   # GET /grades/new
   def new
-    @grade = Grade.new
+    if !user_signed_in?
+      redirect_to user_session_path
+    else
+      @grade = Grade.new
+    end
   end
 
   # GET /grades/1/edit
   def edit
+    if !user_signed_in?
+      redirect_to user_session_path
+    end
   end
 
   # POST /grades

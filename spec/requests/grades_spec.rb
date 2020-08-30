@@ -124,9 +124,35 @@ RSpec.describe "/grades", type: :request do
   
   #Sad Paths
   context "When not signed in" do
-    it "should not GET /index" do
-      get grades_url
-      expect(response).to redirect_to(new_user_session_path)
+    describe "GET /index" do
+      it "should redirect to sign in page" do
+        get grades_url
+        expect(response).to redirect_to(new_user_session_path)
+      end
     end
+
+    describe "GET /show" do
+      it "should redirect to sign in page" do
+        grade = create(:grade, :valid)
+        get grade_url(grade)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "GET /new" do
+      it "should redirect to sign in page" do
+        get new_grade_url
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "GET /edit" do
+      it "should redirect to sign in page" do
+        grade = create(:grade, :valid)
+        get edit_grade_url(grade)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
   end
 end
