@@ -35,14 +35,14 @@ class GradesController < ApplicationController
   def create
     if !user_signed_in?
       redirect_to user_session_path
-    end
-
-    @grade = Grade.new(grade_params)
-
-    if @grade.save
-      redirect_to @grade, notice: 'Grade was successfully created.'
     else
-      render :new
+      @grade = Grade.new(grade_params)
+
+      if @grade.save
+        redirect_to @grade, notice: 'Grade was successfully created.'
+      else
+        render :new
+      end
     end
   end
 
