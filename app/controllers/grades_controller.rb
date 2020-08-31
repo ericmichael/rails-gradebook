@@ -5,6 +5,9 @@ class GradesController < ApplicationController
   def index
     if !user_signed_in?
       redirect_to user_session_path
+    else
+      # Moved from view. Declaring this in View does not follow MVC
+      @grades = Grade.all
     end
   end
 
