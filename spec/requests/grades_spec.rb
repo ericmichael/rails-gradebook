@@ -128,5 +128,10 @@ RSpec.describe "/grades", type: :request do
       get grades_url
       expect(response).to redirect_to(new_user_session_path)
     end
+
+    it "should not GET /new" do
+      get new_grade_url
+      expect(response).to redirect_to(new_user_session_path)
+    end
   end
 end

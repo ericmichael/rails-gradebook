@@ -1,15 +1,15 @@
 class GradesController < ApplicationController
   before_action :set_grade, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate #Added authentication for the controller
 
   # GET /grades
   def index
-    if !user_signed_in?
-      redirect_to user_session_path
-    end
+    
   end
 
   # GET /grades/1
   def show
+
   end
 
   # GET /grades/new
@@ -56,5 +56,11 @@ class GradesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def grade_params
       params.require(:grade).permit(:student_id, :student_name, :student_grade)
+    end
+
+    def authenticate
+      if !user_signed_in?
+        redirect_to user_session_path
+      end
     end
 end
