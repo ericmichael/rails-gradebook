@@ -147,20 +147,26 @@ RSpec.describe "/grades", type: :request do
     end
 
     it "should not POST /create" do
-      post grades_url, params: { grade: attributes_for(:grade, :valid) }
+      expect {
+        post grades_url, params: { grade: attributes_for(:grade, :valid) }
+      }.not_to change(Grade, :count)
+
       expect(response).not_to be_successful
+      expect(response).to redirect_to(new_user_session_path)
     end
 
     it "should not PATCH /update" do
       grade = create(:grade, :valid)
-      patch grade_url(grade), params: { grade: attributes_for(:grade, :valid) }
-      grade.reload
+      patch grade_url(grade), params: { student_name: "Ruben", student_grade: 0 }
+      expect(Grade.find(grade.id).student_grade).not_to eq(0)
       expect(response).to redirect_to(new_user_session_path)
     end
 
     it "should not DELETE /destroy" do
       grade = create(:grade, :valid)
-      delete grade_url(grade)
+      expect{
+        delete grade_url(grade)
+      }.not_to change(Grade, :count)
       expect(response).to redirect_to(new_user_session_path)
     end
   end

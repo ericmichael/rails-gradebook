@@ -51,12 +51,6 @@ class GradesController < ApplicationController
       @grade = Grade.find(params[:id])
     end
 
-    def authenticate_user
-      if !user_signed_in?
-        redirect_to user_session_path
-      end
-    end
-
     # Only allow a list of trusted parameters through.
     def grade_params
       params.require(:grade).permit(:student_id, :student_name, :student_grade)
