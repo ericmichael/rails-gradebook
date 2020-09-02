@@ -4,6 +4,7 @@ class GradesController < ApplicationController
 
   # GET /grades
   def index    
+    @grades = Grade.all
   end
 
   # GET /grades/1
