@@ -1,18 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Grade, type: :model do
-
-  before do
-    @user = create(:user)
-  end
-
-  context "When signed in" do
-    before do
-       sign_in @user
-    end
-  
-
-
   it "requires a student id to be valid" do
     grade = Grade.new(student_name: "Fred Flinstone", student_grade: 20)
     expect(grade).to be_invalid
@@ -37,5 +25,4 @@ RSpec.describe Grade, type: :model do
     grade = Grade.new(student_id: "18484", student_name: "Joe Exotic", student_grade: -30)
     expect(grade).to be_invalid
   end
-end
 end
