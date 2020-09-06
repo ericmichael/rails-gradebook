@@ -3,9 +3,7 @@ class Grade < ApplicationRecord
     validates_presence_of :student_name
     validates_presence_of :student_grade
     validate :student_grade_checker
-    validate :student_id_checker
-    validate :student_name_checker
-
+    
     #custom validators
 
     #makes sure student_grade is inbetween 0 and 100
@@ -26,32 +24,4 @@ class Grade < ApplicationRecord
         end
     end
 
-    #makes sure the student_id is a number value greater than 0
-    def student_id_checker
-        #if student_id is not null, because then we can't compare it with a numeric checker
-        if student_id != nil
-            #check if student_id is a number
-            if student_id.is_a? Numeric
-                #check if student_id is greater than or equal to 0
-                if student_id >= 0
-                else
-                    errors.add(:student_id, "can't be less than 0")
-                end
-            else
-                errors.add(:student_id, "can only contain numbers")
-            end
-        else
-            errors.add(:student_id, "is a required field!")
-        end
-    end
-
-    #makes sure the student_name is alphabetical
-    def student_name_checker
-        #check if student_name is not null, because then we can't compare it with an alphabetic checker
-        if student_id != nil
-            
-        else
-            errors.add(:student_id, "is a required field!")
-        end
-    end
 end
