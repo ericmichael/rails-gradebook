@@ -151,10 +151,17 @@ RSpec.describe "/grades", type: :request do
       expect(response).to redirect_to(new_user_session_path)
     end
 
-    #it "should not DELETE /destroy" do
-    #    grade = create(:grade, :valid)
-    #    delete grade_url(grade)
-    #    expect(response).to redirect_to(new_user_session_path)
-    #end
+    it "should not DELETE /destroy" do
+        grade = create(:grade, :valid)
+        delete grade_url(grade)
+        expect(response).to redirect_to(new_user_session_path)
+    end
+
+    it "should not PATCH /update" do
+      grade = create(:grade, :valid)
+      patch grade_url(grade), params: { grade: attributes_for(:grade, :invalid) }
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
   end
 end
