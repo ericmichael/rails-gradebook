@@ -5,7 +5,6 @@ class Grade < ApplicationRecord
     validate :student_grade_checker
     validate :student_id_checker
     validate :student_name_checker
-    validate :student_grade_checker
 
     #custom validators
 
