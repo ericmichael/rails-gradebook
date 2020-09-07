@@ -32,6 +32,13 @@ When("I fill out the form and submit") do
     click_on "Create Grade"
 end
 
+When("I edit the form and submit") do
+    fill_in "grade_student_id", with: "500"
+    fill_in "grade_student_name", with: "billy mcgee"
+    fill_in "grade_student_grade", with: 70
+    click_on "Update Grade"
+end
+
 Then("I should have added a grade") do
     expect(page).to have_content("Grade was successfully created.")
 end
@@ -56,4 +63,8 @@ end
 
 When("I click {string} on a post") do |string|
     click_on string, :match => :first
+end
+
+Then("I should see the successfully updated grade") do
+    expect(page).to have_content("Grade was successfully updated.")
 end
