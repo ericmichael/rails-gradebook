@@ -124,9 +124,39 @@ RSpec.describe "/grades", type: :request do
   
   #Sad Paths
   context "When not signed in" do
+
     it "should not GET /index" do
       get grades_url
       expect(response).to redirect_to(new_user_session_path)
     end
+    it "should not POST /create" do
+      post grades_url, params: { grade: attributes_for(:grade, :valid) }
+      expect(response).to redirect_to(new_user_session_path)
+      expect{
+        post grades_url, params: { grade: attributes_for(:grade, :invalid) }
+      }.to change(Grade, :count).by(0)
+    end
+
+    it "should not DELETE /destroy" do
+      grade = create(:grade, :valid)
+    grade = create(:grade, :valid)
+    expect {
+      delete grade_url(grade)
+      expect(response).to redirect_to(new_user_session_path)
+    }.to change(Grade, :count).by(0)
+    expect(response).to redirect_to(new_user_session_path)
   end
+
+
+    it "should not be able to edit grades at PATCH/grades" do
+      grade=create(:grade, :valid)
+      patch grade_url(grade), params: { grade: {student_id: "80", student_name: "tom brady", student_grade: 97} }
+      expect(Grade.find(grade.id).student_id).to_not eq("80")
+      expect(response).to redirect_to(new_user_session_path)
+    end 
+
+
+  end
+
+
 end
