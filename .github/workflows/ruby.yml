@@ -45,4 +45,5 @@ jobs:
        bundler exec rails db:migrate RAILS_ENV=test
     - name: Run test
       run: |
-       bundle exec rake
+       bundle exec rspec
+       bundle exec cucumber
