@@ -14,4 +14,12 @@ class Grade < ApplicationRecord
             end
         end
     end
+
+    def grade_must_be_less_that_or_equal_to_100
+        if student_grade != nil
+            if student_grade < 100
+                errors.add(:student_grade, "can't be geater than 100")
+            end            
+        end
+    end
 end
