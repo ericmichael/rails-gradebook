@@ -57,3 +57,20 @@ end
 When("I click {string} on a post") do |string|
     click_on string, :match => :first
 end
+
+When("I edit the student information and submit") do
+    fill_in "grade_student_id", with: "654321"
+    fill_in "grade_student_name", with: "Ruben Puga"
+    fill_in "grade_student_grade", with: 79
+    click_on "Update Grade"
+end
+
+
+Then("I should have edited the grade") do
+    expect(page).to have_content("Grade was successfully updated.")
+    expect(page).to have_content("Student: 654321")
+    expect(page).to have_content("Student name: Ruben Puga")
+    expect(page).to have_content("Student grade: 79.0")
+
+end
+  
